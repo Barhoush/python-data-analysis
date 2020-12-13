@@ -21,7 +21,6 @@ for index, filename in enumerate(all_files):
     df = df[pd.to_numeric(df['price'], errors='coerce').notnull()]
     df['state']  =   df['address'].str.split(', ').str[1]
     df['time']  =   df['date'].str.split(' ').str[1]
-    maxQunatity =   int(df.quantity.max())
     bestTime = df['time'].value_counts()
     bestProduct =   df['name'].value_counts()
     bestState =   df['state'].value_counts()
@@ -29,10 +28,6 @@ for index, filename in enumerate(all_files):
     if(bestTime.max()   >   bestSalesTime['sales']):
         bestSalesTime['time'] = bestTime.idxmax()
         bestSalesTime['sales'] = bestTime.max()
-
-    if(maxQunatity  >   maxStateOrders['orders']):
-        maxStateOrders['orders']    =   maxQunatity
-        maxStateOrders['state']     =   df[df.quantity == df.quantity.max()].state
 
     if(bestProduct.max()   >   bestProductSales['sales']):
         bestProductSales['product'] = bestProduct.idxmax()
